@@ -10,10 +10,8 @@ main <- function(){
   ID_country <- data |> extract_country()
   
   # save 
-  save_path1 <- here::here("02_build","data","features.obj")
-  saveRDS(features, save_path1)
-  save_path2 <- here::here("02_build","data","ID_country.obj")
-  saveRDS(ID_country, save_path2)
+  save_data(features)
+  save_data(ID_country)
 }
 
 
@@ -47,6 +45,13 @@ extract_country <- function(data){
   output <- data |> dplyr::select(all_of(ID_country_cols)) |> 
     dplyr::rename("Country" = Country.of.Origin)
   return(output)
+}
+
+
+save_data <- function(input){
+  file_name <- paste0(deparse(substitute(input)),  ".obj")
+  save_path <- here::here("02_build","data", file_name)
+  saveRDS(input, save_path)
 }
 
 
