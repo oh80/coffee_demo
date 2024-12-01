@@ -15,8 +15,12 @@ main <- function(){
   # run MCMC
   MCMC_res <- gibbs_sampler(X, y)
   
+  # PCA
+  PCA_score <- pca_analyze(data)
+  
   # save
-  save_samples(MCMC_res)
+  save_result(MCMC_res)
+  save_result(PCA_score)
 }
 
 
@@ -33,10 +37,20 @@ set_X <- function(data){
 }
 
 
-save_samples <- function(res){
-  file_name <- "MCMC_res.obj"
+pca_analyze <- function(data){
+  features <- c("Aroma", "Flavor", "Aftertaste", "Acidity", "Balance", "Body")
+  X <- data |> dplyr::select(all_of(features))
+  
+  pca_res <- prcomp(X, scale=TRUE)
+  pca_score <- pca_res$x
+  return(pca_score)
+}
+
+
+save_result <- function(input){
+  file_name <- paste0(deparse(substitute(input)),  ".obj")
   save_path <- here::here("03_analyze", "result", file_name)
-  saveRDS(res, save_path)
+  saveRDS(input, save_path)
 }
 
 
