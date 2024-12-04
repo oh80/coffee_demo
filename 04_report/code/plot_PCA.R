@@ -68,7 +68,7 @@ plot_pca_scatter <- function(data){
 
 
 save_plot <- function(plot){
-  file_name <- paste0("2d_PCA_point",".pdf")
+  file_name <- paste0("2d_PCA_point",".png")
   save_path <- here::here("04_report", "result", file_name)
   ggplot2::ggsave(save_path, plot)
 }

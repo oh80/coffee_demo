@@ -39,7 +39,7 @@ plot_hist <- function(MCMC_res){
 
 save_plot <- function(plot_list){
   for(i in 1:length(plot_list)){
-    file_name <- paste0("beta_posterior_", i, ".pdf")
+    file_name <- paste0("beta_posterior_", i, ".png")
     save_path <- here::here("04_report", "result", file_name)
     ggplot2::ggsave(save_path, plot_list[[i]])
   }
